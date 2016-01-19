@@ -71,9 +71,9 @@ function exitcode_marker {
   local exit_code="$1"
   if [ ! -z "${last_command}" ]; then
     if [ "${exit_code}" = 0 ]; then
-      echo -ne "✔"
+      echo -ne "\ue20a"
     else
-      echo -ne "✘"
+      echo -ne "\ue20c"
     fi
     return 0
   fi
@@ -191,7 +191,7 @@ function prompt_status {
     fi
 
     if [[ $(jobs -l | wc -l) -gt 0 ]]; then
-      prompt_segment yellow black ⧗
+      prompt_segment yellow black "\u29d7"
     fi
   fi
 }
@@ -235,7 +235,7 @@ function update_title_preexec {
         echo -ne "$(pwd)"
     fi
     echo -ne ": ${current_command/%\ */}"
-    echo -ne " ⧗"
+    echo -ne " \u29d7"
     echo -ne "\007"
 }
 
