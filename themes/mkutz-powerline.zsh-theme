@@ -52,19 +52,11 @@ SEGMENTS=0
 SEGMENTS_BACK=0
 
 function apply_fg {
-  if [[ $1 =~ '^[0-9]+$' ]]; then
-    echo -ne "$FG[$1]"
-  else
-    echo -ne "%F{$1}"
-  fi
+  [[ $1 =~ '^[0-9]+$' ]] && echo -ne "$FG[$1]" || echo -ne "%F{$1}"
 }
 
 function apply_bg {
-  if [[ $1 =~ '^[0-9]+$' ]]; then
-    echo -ne "$BG[$1]"
-  else
-    echo -ne "%K{$1}"
-  fi
+  [[ $1 =~ '^[0-9]+$' ]] && echo -ne "$BG[$1]"|| echo -ne "%K{$1}"
 }
 
 function exitcode_marker {
@@ -99,7 +91,6 @@ function prompt_segment {
   SEGMENTS+=1
   [[ -n $text ]] && echo -ne $text
 }
-
 
 # End the prompt, closing any open segments
 function prompt_end {
@@ -164,8 +155,6 @@ function prompt_git {
   fi
 }
 
-function
-
 # Dir: current working directory
 function prompt_dir {
   prompt_segment blue black '%~'
@@ -195,6 +184,7 @@ function prompt_status {
     fi
   fi
 }
+
 
 ## Main prompt
 function build_prompt {
