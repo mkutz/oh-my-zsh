@@ -216,6 +216,13 @@ function update_title_precmd {
   echo -ne "\007"
 }
 
+function notfiy_precmd {
+  local TERMINAL_ICON="/usr/share/icons/Humanity/apps/32/gnome-terminal.svg"
+  if [ ! -z "${last_command}" ]; then
+    notify-send -i ${TERMINAL_ICON} "Done" "${last_command} $(exitcode_marker ${exit_code})"
+  fi
+}
+
 function update_title_preexec {
     local current_command="$1"
     echo -ne "\e]0;"
@@ -230,7 +237,7 @@ function update_title_preexec {
 }
 
 function update_last_command_preexec {
-  last_command=$1
+  last_command="$1"
 }
 
 function update_exit_code_precmd {
@@ -242,4 +249,5 @@ preexec_functions+=update_title_preexec
 
 precmd_functions+=update_exit_code_precmd
 precmd_functions+=update_title_precmd
+precmd_functions+=notfiy_precmd
 precmd_functions+=set_prompt
